@@ -40,4 +40,9 @@ public class StudentService {
 
         return Optional.of(studentRepository.save(student));
     }
+
+    public void deleteStudent(Long studentId) {
+
+        studentRepository.deleteById(studentId);
+    }
 }

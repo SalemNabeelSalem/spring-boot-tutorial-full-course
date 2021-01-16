@@ -75,7 +75,7 @@ public class StudentController {
         }
     }
 
-    @PutMapping("students/{id}")
+    @PutMapping("/students/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable("id") Long studentId,
                                                  @RequestBody Student studentRequest) {
 
@@ -89,6 +89,30 @@ public class StudentController {
                     studentService.updateStudent(studentId, studentRequest).get(),
                     HttpStatus.OK
                 );
+
+            } else {
+
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception ex) {
+
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("id") Long studentId) {
+
+        try {
+
+            Optional<Student> studentData = studentService.getStudentById(studentId);
+
+            if (studentData.isPresent()) {
+
+                studentService.deleteStudent(studentId);
+
+                return new ResponseEntity<>(null, HttpStatus.OK);
 
             } else {
 
