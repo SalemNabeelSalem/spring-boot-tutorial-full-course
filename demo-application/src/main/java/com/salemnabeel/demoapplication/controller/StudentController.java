@@ -65,9 +65,18 @@ public class StudentController {
 
         try {
 
-            Student student = studentService.createStudent(studentRequest);
+            Optional<Student> studentData = studentService.findStudentByEmail(studentRequest.getEmail());
 
-            return new ResponseEntity<>(student, HttpStatus.OK);
+            if (studentData.isPresent()) {
+
+                return new ResponseEntity<>(null, HttpStatus.FOUND);
+
+            } else {
+
+                Student student = studentService.createStudent(studentRequest);
+
+                return new ResponseEntity<>(student, HttpStatus.OK);
+            }
 
         } catch (Exception ex) {
 

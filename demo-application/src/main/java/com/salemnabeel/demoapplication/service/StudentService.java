@@ -50,4 +50,9 @@ public class StudentService {
 
         studentRepository.deleteAll();
     }
+
+    public Optional<Student> findStudentByEmail(String email) {
+
+        return studentRepository.findByEmail(email);
+    }
 }
