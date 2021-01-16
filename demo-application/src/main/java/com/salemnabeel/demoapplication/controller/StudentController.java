@@ -78,7 +78,6 @@ public class StudentController {
     @PutMapping("/students/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable("id") Long studentId,
                                                  @RequestBody Student studentRequest) {
-
         try {
 
             Optional<Student> studentData = studentService.getStudentById(studentId);
@@ -117,6 +116,30 @@ public class StudentController {
             } else {
 
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception ex) {
+
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/students")
+    public ResponseEntity<HttpStatus> deleteAllStudents() {
+
+        try {
+
+            List<Student> students = studentService.getAllStudents();
+
+            if (students.size() > 1) {
+
+                studentService.deleteAllStudents();
+
+                return new ResponseEntity<>(null, HttpStatus.OK);
+
+            } else {
+
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
 
         } catch (Exception ex) {
