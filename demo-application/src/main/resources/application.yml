@@ -1,13 +1,14 @@
 server:
   error:
     include-message: always
+  port: 8008
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:schooldb
     driver-class-name: org.h2.Driver
     username: salem_nabeel
-    password: root
+    password: s_n
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
@@ -15,5 +16,5 @@ spring:
       ddl-auto: create-drop
   h2:
     console:
-      enabled: true # http://localhost:8080/h2-ui
-      path: /h2-ui
+      enabled: true
+      path: /h2-ui # http://localhost:8008/h2-ui
